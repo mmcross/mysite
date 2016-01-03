@@ -9,6 +9,7 @@ class NewVisitorTest(unittest.TestCase):
 		self.browser.close()
 
 	def test_can_start(self):
+		self.browser.get('http://localhost:8000')
 		self.assertIn('To-Do',self.browser.title)
 		self.fail('finish')
 
