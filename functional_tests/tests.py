@@ -1,8 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+
+class NewVisitorTest(LiveServerTestCase):
 	def setUp(self):
 		self.browser = webdriver.Chrome()
 
@@ -15,7 +16,7 @@ class NewVisitorTest(unittest.TestCase):
 		self.assertIn(row_text,[row.text for row in rows])
 
 	def test_can_start(self):
-		self.browser.get('http://localhost:8000')
+		self.browser.get(self.live_server_url)
 		self.assertIn('To-Do',self.browser.title)
 		
 		header_text = self.browser.find_element_by_tag_name('h1').text
@@ -40,6 +41,3 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys(Keys.ENTER)
 		self.check_for_row_in_list_table('1: Buy peacock feathers')
 		self.check_for_row_in_list_table('2: User peacock feathers to make a fly')
-
-if __name__ == '__main__':
-	unittest.main(warnings='ignore')
