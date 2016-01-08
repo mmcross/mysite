@@ -1,6 +1,14 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+firefox_capabilities = DesiredCapabilities.FIREFOX
+firefox_capabilities['marionette'] = True
+firefox_capabilities['binary'] = 'C:\\Windows\\System32'
+
+
 
 
 class NewVisitorTest(LiveServerTestCase):
