@@ -21,6 +21,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 	def tearDownClass(cls):
 		if cls.server_url == cls.live_server_url:
 			super().tearDownClass()
+		super().tearDownClass()
 
 	def setUp(self):
 		self.browser = webdriver.Chrome()
@@ -28,17 +29,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
 	def tearDown(self):
 		self.browser.close()
 
-	def test_layout_and_styling(self):
-		self.browser.get(self.server_url)
-		self.browser.set_window_size(1024,768)
-
-		inputbox = self.browser.find_element_by_id('id_new_item')
-		self.assertAlmostEqual(
-				inputbox.location['x'] + inputbox.size['width'] /2,512,delta=10
-			)
-
-
-'''
 	def check_for_row_in_list_table(self,row_text):
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
@@ -89,4 +79,22 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Buy peacock feathers',page_text)
 		self.assertIn('Buy milk',page_text)
-'''
+
+	def test_layout_and_styling(self):
+		self.browser.get(self.server_url)
+		self.browser.set_window_size(1024,768)
+
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		self.assertAlmostEqual(
+				inputbox.location['x'] + inputbox.size['width'] /2,512,delta=10
+			)
+		inputbox.send_keys('test')
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		self.assertAlmostEqual(
+				inputbox.location['x'] + inputbox.size['width'] /2,512,delta=10
+			)
+
+
+
+
+
